@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="fast_scroll_overlay_text_size">50dp</dimen>
+</resources>

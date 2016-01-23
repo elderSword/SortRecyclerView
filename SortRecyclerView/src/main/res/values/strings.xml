@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SortRecyclerView</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">About</string>
+    <string-array name="sort_type">
+        <item>应用名称</item>
+        <item>使用频率</item>
+        <item>占用空间</item>
+        <item>安装时间</item>
+    </string-array>
+</resources>

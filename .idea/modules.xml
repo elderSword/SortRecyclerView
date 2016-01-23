@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SortRecyclerView.iml" filepath="$PROJECT_DIR$/SortRecyclerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SortRecyclerView/SortRecyclerView-SortRecyclerView.iml" filepath="$PROJECT_DIR$/SortRecyclerView/SortRecyclerView-SortRecyclerView.iml" />
+    </modules>
+  </component>
+</project>
