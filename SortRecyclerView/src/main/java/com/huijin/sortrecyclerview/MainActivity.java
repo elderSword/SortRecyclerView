@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.eowise.recyclerview.stickyheaders.OnHeaderClickListener;
 import com.eowise.recyclerview.stickyheaders.StickyHeadersAdapter;
@@ -33,7 +34,7 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements OnHeaderClickListener {
     private static final String TAG = "testfastscroll";
-    private RecyclerView mRecyclerView;
+    private FastScrollRecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<SortModel> myDataset;
@@ -49,17 +50,15 @@ public class MainActivity extends ActionBarActivity implements OnHeaderClickList
      * 汉字转换成拼音的类
      */
     private CharacterParser characterParser;
-    /**
-     * 根据拼音来排列ListView里面的数据类
-     */
-    private PinyinComparator pinyinComparator;
+    private TextView mLetterDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         type = SORT_NAME;
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (FastScrollRecyclerView) findViewById(R.id.my_recycler_view);
+        mLetterDialog = (TextView) findViewById(R.id.letter_dialog);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -68,6 +67,7 @@ public class MainActivity extends ActionBarActivity implements OnHeaderClickList
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setTextView(mLetterDialog);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner_sort);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -82,34 +82,13 @@ public class MainActivity extends ActionBarActivity implements OnHeaderClickList
 
             }
         });
-        // specify an adapter (see also next example)
-//        myDataset = new ArrayList<String>();
-//        for(int i=0; i<26; i++) {
-//            myDataset.add(Character.toString((char)(65 + i)) + " Row item");
-//        }
-//        HashMap<String, Integer> mapIndex = calculateIndexesForName(myDataset);
-//        sourceDateList = filledData(myDataset);
-
         initSort();
     }
 
     private void initSort() {
         initDatas();
-        switch (type) {
-            case SORT_NAME:
-                // 根据a-z进行排序源数据
-                Collections.sort(myDataset, new PinyinComparator());
-                break;
-            case SORT_APK_SIZE:
-                Collections.sort(myDataset, new ApkSizeComparator());
-                break;
-            case SORT_INSTALL_TIME:
-                Collections.sort(myDataset, new InstallTimeComparator());
-                break;
-            case SORT_LAST_TIME:
-                Collections.sort(myDataset, new LastTimeComparator());
-                break;
-        }
+        Collections.sort(myDataset, new SortComparator(type));
+        mRecyclerView.setEnableSide(type==SORT_NAME);
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
         setupHeaders();

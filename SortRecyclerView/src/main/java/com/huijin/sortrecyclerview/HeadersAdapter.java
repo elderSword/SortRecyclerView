@@ -19,11 +19,6 @@ public class HeadersAdapter implements StickyHeadersAdapter<HeadersAdapter.Heade
 
     private List<SortModel> items = new ArrayList<>();
 
-//    private int type;
-//    public HeadersAdapter(int i) {
-//        type = i;
-//    }
-//    private final Set<Long> selectedHeaders = new HashSet<>();
 
     @Override
     public HeaderViewHolder onCreateViewHolder(ViewGroup viewGroup) {
@@ -47,9 +42,6 @@ public class HeadersAdapter implements StickyHeadersAdapter<HeadersAdapter.Heade
         return getHeaderId(items.get(position).getSortLetters());
     }
 
-//    public boolean isHeaderSelected(long headerId) {
-//        return selectedHeaders.contains(headerId);
-//    }
 
     public long getHeaderId(String item) {
         return item.charAt(0);
@@ -61,13 +53,6 @@ public class HeadersAdapter implements StickyHeadersAdapter<HeadersAdapter.Heade
         }
     }
 
-//    public void updateSelectedHeaders(long headerId) {
-//        if(selectedHeaders.contains(headerId)) {
-//            selectedHeaders.remove(headerId);
-//        } else {
-//            selectedHeaders.add(headerId);
-//        }
-//    }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 

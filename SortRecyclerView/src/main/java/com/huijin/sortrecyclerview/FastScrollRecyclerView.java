@@ -7,6 +7,8 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -28,6 +30,9 @@ public class FastScrollRecyclerView extends RecyclerView {
     public String section;
     public boolean showLetter = false;
     private Handler listHandler;
+    private TextView letterDialog;
+    private boolean isEnable;
+
 
     public FastScrollRecyclerView(Context context) {
         super(context);
@@ -44,6 +49,21 @@ public class FastScrollRecyclerView extends RecyclerView {
         ctx = context;
     }
 
+    /**
+     * 为滑动显示的中间textview
+     * @param letter
+     */
+    public void setTextView(TextView letter){
+        this.letterDialog = letter;
+    }
+
+    /**
+     * 启用side的开关
+     * @param isEnable
+     */
+    public void setEnableSide(boolean isEnable){
+        this.isEnable = isEnable;
+    }
     @Override
     public void onDraw(Canvas c) {
         if(!setupThings)
@@ -71,6 +91,9 @@ public class FastScrollRecyclerView extends RecyclerView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(!isEnable){
+            return super.onTouchEvent(event);
+        }
         float x = event.getX();
         float y = event.getY();
 
@@ -85,6 +108,10 @@ public class FastScrollRecyclerView extends RecyclerView {
                     if(currentPosition<0)currentPosition=0;
                     if(currentPosition>=sections.length)currentPosition=sections.length-1;
                     section = sections[currentPosition];
+                    if (letterDialog != null) {
+                        letterDialog.setText(section);
+                        letterDialog.setVisibility(View.VISIBLE);
+                    }
                     showLetter = true;
                     int positionInData = 0;
                     if( ((FastScrollRecyclerViewInterface)getAdapter()).getMapIndex().containsKey(section.toUpperCase()) )
@@ -104,6 +131,10 @@ public class FastScrollRecyclerView extends RecyclerView {
                     if(currentPosition<0)currentPosition=0;
                     if(currentPosition>=sections.length)currentPosition=sections.length-1;
                     section = sections[currentPosition];
+                    if (letterDialog != null) {
+                        letterDialog.setText(section);
+                        letterDialog.setVisibility(View.VISIBLE);
+                    }
                     showLetter = true;
                     int positionInData = 0;
                     if(((FastScrollRecyclerViewInterface)getAdapter()).getMapIndex().containsKey(section.toUpperCase()) )
@@ -118,6 +149,9 @@ public class FastScrollRecyclerView extends RecyclerView {
             case MotionEvent.ACTION_UP: {
                 listHandler = new ListHandler();
                 listHandler.sendEmptyMessageDelayed(0, 100);
+                if (letterDialog != null) {
+                    letterDialog.setVisibility(View.INVISIBLE);
+                }
                 if (x < sx - scaledWidth || y < sy || y > (sy + scaledHeight*sections.length))
                     return super.onTouchEvent(event);
                 else

@@ -44,9 +44,9 @@ public class FastScrollRecyclerViewItemDecoration extends RecyclerView.ItemDecor
 
             int xPos = (canvas.getWidth() -  (int)middleTextSize)/ 2;
             int yPos = (int) ((canvas.getHeight() / 2) - ((middleLetter.descent() + middleLetter.ascent()) / 2));
-            canvas.drawRect(canvas.getWidth()/2-(int)middleTextSize, canvas.getHeight() / 2 - 120, canvas.getWidth()/2- ((middleLetter.descent() + middleLetter.ascent())), canvas.getHeight() / 2 + 120, overlayDark);
+//            canvas.drawRect(canvas.getWidth()/2-(int)middleTextSize, canvas.getHeight() / 2 - 120, canvas.getWidth()/2- ((middleLetter.descent() + middleLetter.ascent())), canvas.getHeight() / 2 + 120, overlayDark);
 //            canvas.drawRect(canvas.getWidth()/2 - 150, yPos,canvas.getWidth()/2 + 150, yPos+300, overlayDark);
-            canvas.drawText(section.toUpperCase(), xPos, yPos, middleLetter);
+//            canvas.drawText(section.toUpperCase(), xPos, yPos, middleLetter);
         }
         // draw indez A-Z
 
