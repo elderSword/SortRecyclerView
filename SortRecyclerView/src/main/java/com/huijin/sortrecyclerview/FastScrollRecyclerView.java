@@ -84,7 +84,7 @@ public class FastScrollRecyclerView extends RecyclerView {
 
         scaledWidth = indWidth * ctx.getResources().getDisplayMetrics().density;
         scaledHeight= indHeight* ctx.getResources().getDisplayMetrics().density;
-        sx = this.getWidth() - this.getPaddingRight() - (float)(0.8*scaledWidth);
+        sx = this.getWidth() - (float)(0.5*scaledWidth) - this.getPaddingRight();
         sy = (float)((this.getHeight() - (scaledHeight * sections.length) )/2.0);
         setupThings = true;
     }
